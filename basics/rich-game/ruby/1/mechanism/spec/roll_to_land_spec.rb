@@ -7,9 +7,10 @@ require_relative '../lib/place/tool_room.rb'
 require_relative '../lib/place/gift_room.rb'
 require_relative '../lib/game/config.rb'
 
-describe Response do
+describe RollCommand do
 
   before(:each) do
+    @step = 1
     @target = Land.new(200)
     @map = Map.new
     @roll = RollCommand.new(@map, @step)
