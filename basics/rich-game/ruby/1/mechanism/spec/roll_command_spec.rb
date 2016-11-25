@@ -23,7 +23,7 @@ describe RollCommand do
 
   it 'should change player status to wait_for_upgrade on self land' do
     target = Land.new(200)
-    allow(target).to receive(:owner) {@player}
+    allow(target).to receive(:visit_by) {:wait_for_upgrade}
     allow(@map).to receive(:move) {target}
     @player.execute(@roll)
     expect(@player.status).to eq(:wait_for_upgrade)
@@ -31,7 +31,7 @@ describe RollCommand do
 
   it 'should change playe status to end_turn on others land' do
     target = Land.new(200)
-    allow(target).to receive(:owner) {Player.new}
+    allow(target).to receive(:visit_by) {:end_turn}
     allow(@map).to receive(:move) {target}
     @player.execute(@roll)
     expect(@player.status).to eq(:end_turn)

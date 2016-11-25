@@ -22,7 +22,7 @@ class Player
   end
 
   def respond(response)
-    @status = @last_executed.execute_with(response)
+    @status = @last_executed.execute_with(self, response)
   end
 
   def move_to(target)
@@ -41,7 +41,7 @@ class Player
   end
 
   def upgrade(land)
-    if (@balance >= land.price && land.owner == self)
+    if (@balance >= land.price && land.owner == self && land.level < LandConf::TOP_LEVEL)
       land.upgrade
       @balance -= land.price
       true
@@ -60,5 +60,14 @@ class Player
       false
     end
   end
+
+  def pay(amount)
+    @balance -= amount
+  end
+
+  def gain(amount)
+    @balance += amount
+  end
+
 
 end

@@ -25,7 +25,7 @@ describe Player do
     response = Response.new
 
     allow(@command).to receive(:execute).with(an_instance_of(Player)) {:wait_for_response}
-    allow(@command).to receive(:execute_with).with(an_instance_of(Response)) {:end_turn}
+    allow(@command).to receive(:execute_with).with(an_instance_of(Player), an_instance_of(Response)) {:end_turn}
     @player.execute(@command)
     expect(@player.status).to eq(:wait_for_response)
     @player.respond(response)

@@ -9,4 +9,9 @@ class RollCommand < Command
     player.move_to(target)
     target.visit_by(player)
   end
+
+  def execute_with(player, response)
+    target = player.current_place
+    target.act_to(player, response)
+  end
 end
