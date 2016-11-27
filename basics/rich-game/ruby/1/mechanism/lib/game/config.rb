@@ -8,3 +8,9 @@ end
 module LandConf
   TOP_LEVEL = 3
 end
+
+module GiftConf
+  BONUS_MONEY = 2000
+  BONUS_POINTS = 200
+  TURN_WITH_MASCOT = 5
+end

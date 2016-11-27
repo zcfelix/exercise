@@ -1,7 +1,7 @@
 require_relative 'config.rb'
 class Player
-  attr_reader :current_place, :balance, :lands, :tools, :tool_quantity
-  attr_accessor :status, :points
+  attr_reader :current_place, :balance, :lands, :tools, :tool_quantity, :points
+  attr_accessor :status, :no_punish_turns
 
   def initialize *args
     unless args.empty?
@@ -14,15 +14,22 @@ class Player
     @lands = []
     @tools = Hash.new(0)
     @tool_quantity = 0
+    @no_punish_turns = 0
   end
 
   def execute(command)
     @last_executed = command
     @status = command.execute(self)
+    if (@status == :end_turn && @no_punish_turns > 0)
+      @no_punish_turns -= 1
+    end
   end
 
   def respond(response)
     @status = @last_executed.execute_with(self, response)
+    if (@status == :end_turn && @no_punish_turns > 0)
+      @no_punish_turns -= 1
+    end
   end
 
   def move_to(target)
@@ -69,5 +76,16 @@ class Player
     @balance += amount
   end
 
+  def gain_points(amount)
+    @points += amount
+  end
+
+  def can_be_punished?
+    @no_punish_turns == 0
+  end
+
+  def can_gain_road_toll?
+    true
+  end
 
 end

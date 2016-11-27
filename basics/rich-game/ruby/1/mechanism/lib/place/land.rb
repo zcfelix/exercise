@@ -13,8 +13,10 @@ class Land < Place
     elsif (@owner == player)
       :wait_for_upgrade
     else
-      player.pay(road_toll)
-      owner.gain(road_toll)
+      if (player.can_be_punished? && owner.can_gain_road_toll?)
+        player.pay(road_toll)
+        owner.gain(road_toll)
+      end
       if (player.balance >= 0)
         :end_turn
       else
@@ -43,7 +45,6 @@ class Land < Place
         :end_turn
       end
     end
-
   end
 
   def road_toll
