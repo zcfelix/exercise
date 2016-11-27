@@ -3,7 +3,6 @@ require_relative '../lib/command/roll_command.rb'
 require_relative '../lib/game/map.rb'
 require_relative '../lib/place/place.rb'
 require_relative '../lib/place/land.rb'
-require_relative '../lib/place/tool_room.rb'
 require_relative '../lib/place/gift_room.rb'
 require_relative '../lib/game/config.rb'
 

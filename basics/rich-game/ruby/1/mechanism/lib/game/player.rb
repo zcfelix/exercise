@@ -1,7 +1,7 @@
 require_relative 'config.rb'
 class Player
   attr_reader :current_place, :balance, :lands, :tools, :tool_quantity, :points
-  attr_accessor :status, :no_punish_turns
+  attr_accessor :status, :no_punish_turns, :paused_turns
 
   def initialize *args
     unless args.empty?
@@ -15,6 +15,7 @@ class Player
     @tools = Hash.new(0)
     @tool_quantity = 0
     @no_punish_turns = 0
+    @paused_turns = 0
   end
 
   def execute(command)
@@ -84,9 +85,23 @@ class Player
     true
   end
 
+  def start_turn
+    if need_wait?
+      @status = :wait_for_turn
+      @paused_turns -= 1
+      :wait_for_turn
+    else
+      :wait_for_command
+    end
+  end
+
   private
   def end_turn_work
     @no_punish_turns -= 1 if @no_punish_turns > 0
+  end
+
+  def need_wait?
+    @paused_turns > 0
   end
 
 end

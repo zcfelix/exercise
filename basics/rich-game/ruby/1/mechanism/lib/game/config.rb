@@ -14,3 +14,7 @@ module GiftConf
   BONUS_POINTS = 200
   TURN_WITH_MASCOT = 5
 end
+
+module PrisonConf
+  PAUSED_TURNS = 2
+end
