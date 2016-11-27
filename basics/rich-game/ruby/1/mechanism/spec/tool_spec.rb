@@ -9,15 +9,15 @@ require_relative '../lib/tool/robot.rb'
 require_relative '../lib/game/config.rb'
 
 describe Tool do
-  @@start_points = 2000
   before(:each) do
-    @player = Player.new :points => @@start_points
+    @start_points = 2000
+    @player = Player.new :points => @start_points
     @bomb = Bomb.new
   end
 
   it 'should palyer buy tool' do
     expect(@player.buy_tool(@bomb)).to eq(true)
-    expect(@player.points).to eq(@@start_points - @bomb.points)
+    expect(@player.points).to eq(@start_points - @bomb.points)
     expect(@player.tools[@bomb]).to eq(1)
     expect(@player.tool_quantity).to eq(1)
   end
@@ -27,7 +27,7 @@ describe Tool do
       expect(@player.buy_tool(@bomb)).to eq(true)
     end
     expect(@player.buy_tool(@bomb)).to eq(false)
-    expect(@player.points).to eq(@@start_points - @bomb.points * ToolConf::MAX_QUANTITY)
+    expect(@player.points).to eq(@start_points - @bomb.points * ToolConf::MAX_QUANTITY)
     expect(@player.tool_quantity).to eq(ToolConf::MAX_QUANTITY)
   end
 

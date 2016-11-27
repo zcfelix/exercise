@@ -1,3 +1,5 @@
+require_relative 'command.rb'
+
 class RollCommand < Command
   def initialize(map, step)
     @map = map

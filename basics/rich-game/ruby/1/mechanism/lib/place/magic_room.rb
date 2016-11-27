@@ -1,0 +1,2 @@
+class MagicRoom < Place
+end
