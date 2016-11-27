@@ -20,16 +20,12 @@ class Player
   def execute(command)
     @last_executed = command
     @status = command.execute(self)
-    if (@status == :end_turn && @no_punish_turns > 0)
-      @no_punish_turns -= 1
-    end
+    end_turn_work if @status == :end_turn
   end
 
   def respond(response)
     @status = @last_executed.execute_with(self, response)
-    if (@status == :end_turn && @no_punish_turns > 0)
-      @no_punish_turns -= 1
-    end
+    end_turn_work if @status == :end_turn
   end
 
   def move_to(target)
@@ -86,6 +82,11 @@ class Player
 
   def can_gain_road_toll?
     true
+  end
+
+  private
+  def end_turn_work
+    @no_punish_turns -= 1 if @no_punish_turns > 0
   end
 
 end
