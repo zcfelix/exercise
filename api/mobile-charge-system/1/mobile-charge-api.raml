@@ -1,0 +1,425 @@
+#%RAML 0.8
+title: Mobile Charge System
+mediaType: application/json
+
+/cards:
+  /{cid}:
+    get:
+      description: As a user I can see my card information.
+      responses:
+        200:
+          body:
+            application/json:
+              schema: |
+                {
+                  "$schema": "http://json-schema.org/draft-04/schema#",
+                  "type": "object",
+                  "properties": {
+                    "uri": {
+                      "type": "string"
+                    },
+                    "id": {
+                      "type": "string"
+                    },
+                    "number": {
+                      "type": "string"
+                    },
+                    "location": {
+                      "type": "string"
+                    },
+                    "balance": {
+                      "type": "object",
+                      "properties": {
+                        "amount": {
+                          "type": "number"
+                        },
+                        "remain_call_time": {
+                          "type": "number"
+                        },
+                        "remain_traffic_data": {
+                          "type": "number"
+                        },
+                        "remain_message_count": {
+                          "type": "number"
+                        },
+                        "required": ["amout", "remain_call_time", "remain_traffic_data", "remain_message_count"]
+                      }
+                    },
+                    "required": ["uri", "id", "number", "location", "balance"]
+                  }
+                }
+              example: |
+                {
+
+                }
+        404:
+
+    /packages:
+      get:
+        description: As a user, I can view all my packages
+        responses:
+          200:
+            body:
+              application/json:
+                schema: |
+                  {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "uri": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        },
+                        "price": {
+                          "type": "number"
+                        },
+                        "effective_date": {
+                          "type": "string"
+                        },
+                        "expiry_date": {
+                          "type": "string"
+                        },
+                        "required": ["uri", "id", "name", "price", "effective_date", "expiry_date"]
+                      }
+                    }
+                  }
+          404:
+      post:
+        description: As a user, I can choose a new package
+        body:
+          application/json:
+            schema: |
+              {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "properties": {
+                  "package_id": {
+                    "type": "string"
+                  },
+                  "effective_date": {
+                    "type": "string"
+                  }
+                }
+              }
+        responses:
+          201:
+            headers:
+              location:
+                description: "created package uri"
+                type: "string"
+          404:
+          400:
+
+    /policy:
+      get:
+        description: As a user, I can view the charge standard of kind of consumption
+        responses:
+          200:
+            body:
+              application/json:
+                schema: |
+                  {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "type": "object",
+                    "properties": {
+                      "uri": {
+                        "type": "string"
+                      },
+                      "price_for_call": {
+                        "type": "number"
+                      },
+                      "price_for_message": {
+                        "type": "number"
+                      },
+                      "price_for_data_useage": {
+                        "type": "number"
+                      }
+                    },
+                    "required": ["uri", "price_for_call", "price_for_message", "price_for_data_useage"]
+                  }
+
+    /recharges:
+      get:
+        description: As a user, I can get all the recharge records
+        responses:
+          200:
+            body:
+              application/json:
+                schema: |
+                  {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "uri": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "amount": {
+                          "type": "number"
+                        },
+                        "date": {
+                          "type": "string"
+                        },
+                        "required": ["uri", "id", "amount", "date"]
+                      }
+                    }
+                  }
+          404:
+      post:
+        description: As a user, I can create a recharge
+        body:
+          application/json:
+            schema: |
+              {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "type": "object",
+                "properties": {
+                  "amount": {
+                    "type": "number"
+                  },
+                  "date": {
+                    "type": "string"
+                  },
+                  "required": ["amount", "date"]
+                }
+              }
+        responses:
+          201:
+            headers:
+              location:
+                description: "create recharge uri"
+                type: string
+          404:
+          400:
+      /{rid}:
+        get:
+          description: As a user, I can get recharge detail
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: |
+                    {
+                      "$schema": "http://json-schema.org/draft-04/schema#",
+                      "type": "object",
+                      "properties": {
+                        "uri": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "amount": {
+                          "type": "number"
+                        },
+                        "date": {
+                          "type": "number"
+                        },
+                        "required": ["uri", "id", "amount", "date"]
+                      }
+                    }
+            404:
+
+    /comsumptions:
+      get:
+        description: As a user, I can get all my consumption records
+        responses:
+          200:
+            body:
+              application/json:
+                schema: |
+                  {
+                    "$schema": "http://json-schema.org/draft-04/schema#",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "uri": {
+                          "type": "string"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "consumption_type": {
+                          "enum": ["CALL", "DATA", "MESSAGE"]
+                        },
+                        "date": {
+                          "type": "string"
+                        },
+                        "required": ["uri", "id", "consumption_type", "date"]
+                      }
+                    }
+                  }
+          404:
+      post:
+        description: As a user, I can create a consumption record
+        body:
+          application/json:
+            schema: |
+              {
+                "$schema": "http://json-schema.org/draft-04/schema#",
+                "enum": [{
+                  "type": "object",
+                  "properties": {
+                    "consumption_type": {
+                      "enum": ["CALL"]
+                    },
+                    "from": {
+                      "type": "string"
+                    },
+                    "to": {
+                      "type": "string"
+                    },
+                    "duration": {
+                      "type": "number"
+                    },
+                    "date": {
+                      "type": "string"
+                    },
+                    "required": ["consumption_type", "from", "to", "duration", "date"]
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "consumption_type": {
+                      "enum": ["DATA"]
+                    },
+                    "target_uri": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string"
+                    },
+                    "data_usage": {
+                      "type": "number"
+                    },
+                    "required": ["consumption_type", "target_uri", "date", "data_usage"]
+                  }
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "consumption_type": {
+                      "enum": ["MESSAGE"]
+                    },
+                    "target_number": {
+                      "type": "string"
+                    },
+                    "date": {
+                      "type": "string"
+                    }
+                  }
+                }]
+              }
+        responses:
+          201:
+            headers:
+              location:
+                description: "Created consumption record uri"
+                type: string
+          400:
+          404:
+      /{comsumpId}:
+        get:
+          description: As a user, I can view a comsumption detail
+          responses:
+            200:
+              body:
+                application/json:
+                  schema: |
+                    {
+                      "$schema": "http://json-schema.org/draft-04/schema#",
+                      "enum": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "uri": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "comsumption_type": {
+                              "enum": ["CALL"]
+                            },
+                            "from": {
+                              "type": "string"
+                            },
+                            "to": {
+                              "type": "string"
+                            },
+                            "duration": {
+                              "type": "number"
+                            },
+                            "date": {
+                              "type": "string"
+                            },
+                            "required": ["uri", "id", "consumption_type", "from", "to", "duration", "date"]
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "uri": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "consumption_type": {
+                              "enum": ["DATA"]
+                            },
+                            "target_uri": {
+                              "type": "string"
+                            },
+                            "date": {
+                              "type": "string"
+                            },
+                            "data_usage": {
+                              "type": "number"
+                            },
+                            "required": ["uri", "id", "consumption_type",
+                            "target_uri", "date", "data_usage"]
+                          }
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "uri": {
+                              "type": "string"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "consumption_type": {
+                              "enum": ["MESSAGE"]
+                            },
+                            "target_number": {
+                              "type": "string"
+                            },
+                            "date": {
+                              "type": "string"
+                            },
+                            "required": ["uri", "id", "consumption_type",
+                            "target_number", "date"]
+                          }
+                        }
+                      ]
+                    }
+
+
