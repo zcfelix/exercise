@@ -10,10 +10,10 @@
         <setting name="useGeneratedKeys" value="true"/>
     </settings>
     <typeHandlers>
-        <typeHandler handler="com.thoughtworks.ketsu.infrastructure.mybatis.handlers.DateTimeTypeHandler"
+        <typeHandler handler="com.thoughtworks.mobilerecharge.infrastructure.mybatis.handlers.DateTimeTypeHandler"
                      javaType="org.joda.time.DateTime"/>
     </typeHandlers>
-    <objectFactory type="com.thoughtworks.ketsu.infrastructure.mybatis.factory.ObjectFactory"/>
+    <objectFactory type="com.thoughtworks.mobilerecharge.infrastructure.mybatis.factory.ObjectFactory"/>
     <environments default="development">
         <environment id="development">
             <transactionManager type="JDBC">
@@ -33,8 +33,8 @@
         </environment>
     </environments>
     <mappers>
-        <mapper resource="mybatis/mappers/Records.xml"/>
-        <mapper resource="mybatis/mappers/Columns.xml"/>
-        <mapper resource="mybatis/mappers/UserMapper.xml"/>
+        <!--<mapper resource="mybatis/mappers/Records.xml"/>-->
+        <!--<mapper resource="mybatis/mappers/Columns.xml"/>-->
+        <!--<mapper resource="mybatis/mappers/UserMapper.xml"/>-->
     </mappers>
 </configuration>
