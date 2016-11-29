@@ -3,6 +3,12 @@ title: Mobile Charge System
 mediaType: application/json
 
 /cards:
+  post:
+    description: As a user, my card can be initialized.
+    responses:
+      201:
+      400:
+      403:
   /{cid}:
     get:
       description: As a user I can see my card information.
