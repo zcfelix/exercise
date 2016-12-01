@@ -22,22 +22,6 @@ import static org.mockito.Mockito.when;
 @RunWith(ApiTestRunner.class)
 public class CardsApiTest extends ApiSupport {
 
-//    CardRepository cardRepository = mock(CardRepository.class);
-
-//    @Override
-//    protected Application configure() {
-//        return new ResourceConfig(CardsApi.class)
-//                .register(RoutesFeature.class)
-//                .register(RecordWriter.class)
-//                .register(new AbstractBinder() {
-//                    @Override
-//                    protected void configure() {
-//                        bind(cardRepository).to(CardRepository.class);
-//                    }
-//                });
-//    }
-
-
     @Before
     @Override
     public void setUp() throws Exception {
@@ -55,7 +39,7 @@ public class CardsApiTest extends ApiSupport {
     }
 
     @Test
-    public void should_return_400_when_initialize_a_existed_card() throws Exception {
+    public void should_return_400_when_initialize_an_existed_card() throws Exception {
         Card card = new Card("1", "18810148054", valueOf(44.55));
         when(cardRepository.findBy(anyString())).thenReturn(Optional.of(card));
         when(cardRepository.createCard(anyMap())).thenReturn(card);
@@ -80,4 +64,29 @@ public class CardsApiTest extends ApiSupport {
         assertThat(response.getStatus(), is(200));
         assertThat(info.get("uri").toString().contains("/cards/1"), is(true));
     }
+
+    @Test
+    public void should_return_201_when_add_a_new_package_to_card() throws Exception {
+        Card card = new Card("1", "18810148054", valueOf(44.55));
+        when(cardRepository.find(anyLong())).thenReturn(Optional.of(card));
+        Response response = target("cards/1/packages").request().post(Entity.json(TestHelper.packageMap()));
+        assertThat(response.getStatus(), is(201));
+    }
+
+    @Test
+    public void should_return_400_when_add_a_package_with_wrong_info() throws Exception {
+        Card card = new Card("1", "18810148054", valueOf(44.55));
+        when(cardRepository.find(anyLong())).thenReturn(Optional.of(card));
+        Response response = target("cards/1/packages").request().post(Entity.json(TestHelper.packageMap()));
+        assertThat(response.getStatus(), is(201));
+    }
+
+    @Test
+    public void should_return_200_when_show_card_packages() throws Exception {
+        Card card = new Card("1", "18810148054", valueOf(44.55));
+        when(cardRepository.find(anyLong())).thenReturn(Optional.of(card));
+        Response response = target("cards/1/packages").request().get();
+        assertThat(response.getStatus(), is(200));
+    }
+
 }
