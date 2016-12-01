@@ -11,3 +11,12 @@
     - 400   E: 15min R: 7min
 - get  /cards/{cid}/packages
     - 200   E: 15min R: 13min
+- get /cards/{cid}/policy
+    - 200   E: 10min R: 9min
+    - 404   E: 5min  R: 2min
+- post /cards/{cid}/recharges
+    - 201   E: 15min R: 10min
+    - 400   E: 10min R: 5min
+- get /cards/{cid}/recharges
+    - 200   E: 15min R: 00:15
+    - 404   E: 5min  R:

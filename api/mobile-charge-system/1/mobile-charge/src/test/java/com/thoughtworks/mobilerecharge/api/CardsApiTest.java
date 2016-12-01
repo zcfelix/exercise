@@ -10,10 +10,12 @@ import org.junit.runner.RunWith;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.Response;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
 import static java.math.BigDecimal.valueOf;
+import static javafx.scene.input.KeyCode.M;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.mockito.Matchers.*;
@@ -89,4 +91,42 @@ public class CardsApiTest extends ApiSupport {
         assertThat(response.getStatus(), is(200));
     }
 
+    @Test
+    public void should_return_200_when_get_card_policy() throws Exception {
+        Card card = new Card("1", "18810148054", valueOf(44.55));
+        when(cardRepository.find(anyLong())).thenReturn(Optional.of(card));
+        Response response = target("cards/1/policy").request().get();
+        assertThat(response.getStatus(), is(200));
+    }
+
+    @Test
+    public void should_return_404_when_card_not_found() throws Exception {
+        when(cardRepository.find(anyLong())).thenReturn(Optional.empty());
+        Response response = target("cards/1/policy").request().get();
+        assertThat(response.getStatus(), is(404));
+    }
+
+    @Test
+    public void should_return_201_when_post_recharge() throws Exception {
+        Card card = new Card("1", "18810148054", valueOf(44.55));
+        when(cardRepository.find(anyLong())).thenReturn(Optional.of(card));
+        Response response = target("cards/1/recharges").request().post(Entity.json(TestHelper.rechargeMap(valueOf(5.45))));
+        assertThat(response.getStatus(), is(201));
+    }
+
+    @Test
+    public void should_return_400_when_post_recharge_with_wrong_info() throws Exception {
+        Card card = new Card("1", "18810148054", valueOf(44.55));
+        when(cardRepository.find(anyLong())).thenReturn(Optional.of(card));
+        Response response = target("cards/1/recharges").request().post(Entity.json(new HashMap<String, Object>()));
+        assertThat(response.getStatus(), is(400));
+    }
+
+    @Test
+    public void should_return_200_when_get_recharge() throws Exception {
+        Card card = new Card("1", "18810148054", valueOf(44.55));
+        when(cardRepository.find(anyLong())).thenReturn(Optional.of(card));
+        Response response = target("cards/1/recharges").request().get();
+        assertThat(response.getStatus(), is(200));
+    }
 }

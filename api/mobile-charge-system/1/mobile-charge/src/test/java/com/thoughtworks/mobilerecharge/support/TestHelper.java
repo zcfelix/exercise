@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static java.math.BigDecimal.valueOf;
+
 public class TestHelper {
     private static int auto_increment_key = 1;
     public static Map<String, Object> cardMap(String number, BigDecimal balance) {
@@ -18,6 +20,13 @@ public class TestHelper {
         return new HashMap<String, Object>(){{
             put("package_id", 1);
             put("effective_date", new Date(2016, 12, 1));
+        }};
+    }
+
+    public static Map<String, Object> rechargeMap(BigDecimal amount) {
+        return new HashMap<String, Object>() {{
+            put("amount", amount);
+            put("date", new Date(2016, 12, 1));
         }};
     }
 }

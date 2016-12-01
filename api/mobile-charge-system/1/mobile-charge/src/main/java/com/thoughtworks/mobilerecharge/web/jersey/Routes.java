@@ -21,4 +21,8 @@ public class Routes {
     public URI packageUri(String cardId, Package aPackage) {
         return URI.create(String.format("%scards/%s/packages/%s", baseUri, cardId, aPackage.getPackageId()));
     }
+
+    public URI rechargeUri(String cardId, String rechargeId) {
+        return URI.create(String.format("%scards/%s/recharges/%s", baseUri, cardId, rechargeId));
+    }
 }
