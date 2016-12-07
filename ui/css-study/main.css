@@ -125,8 +125,7 @@ body{
     height: 25px;
     width: 190px;
     margin-top: 7px;
-    background: url("images/search.jpg") no-repeat right center;
-    background-color: #FFF;
+    background: #FFF url("images/search.jpg") no-repeat right center;
     background-size: 12%;
     padding-right: 32px;
     border: 1px solid #FFF;
@@ -180,31 +179,50 @@ body{
     color: #999999;
 }
 
-.pic-news{
+.pic-news, .pic-course{
     height: 80px;
     margin-top: 10px;
     line-height: 22px;
 }
 
-.pic-news img{
+.pic-news img, .pic-course img{
     width: 30%;
     float: left;
     margin: 0 5px;
 }
 
-.pic-news a{
+.pic-course p{
+    text-align: justify;
+    padding-right: 5px;
+}
+
+.pic-news a, .pic-course a{
     color: #C00;
     text-decoration: none;
 }
 
 .news-list{
-    margin-top: 20px;
+    margin-top: 35px;
 }
 
 .news-list li{
     list-style-type: none;
     margin: 8px;
     border-bottom: 1px dotted #CCC;
+}
+
+.course-type ul{
+    margin: 100px auto;
+    width: 320px;
+    height: 20px;
+}
+
+.course-type li{
+    list-style-type: none;
+    float: left;
+    text-align: center;
+    line-height: 20px;
+    margin: 0 15px;
 }
 
 .news-list a:link, .news-list a:visited{
@@ -226,7 +244,6 @@ body{
 .course{
     width: 340px;
     border: 1px solid #E8E8E8;
-    background-color: #ff6;
     margin: 0 7px;
 }
 
