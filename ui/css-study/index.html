@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/setHomeSetFavorite.js" type="text/javascript"></script>
+    <script src="js/myfocus-2.0.4.min.js" type="text/javascript"></script>
+    <script src="js/mf-pattern/mF_YSlider.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="js/mf-pattern/mF_YSlider.css" type="text/css">
+    <link rel="stylesheet" href="main.css" type="text/css">
+    <script type="text/javascript">
+        myFocus.set({id: 'picBox'});
+    </script>
+</head>
+<body>
+
+<div class="page">
+
+    <div class="top">
+        <div class="top_content">
+            <ul>
+                <li><a href="#">联系我们</a></li>
+                <li><a href="#" onclick="AddFavorite('Cool', location.href)">加入收藏</a></li>
+                <li><a href="#" onclick="SetHome(this, window.location)">设为首页</a></li>
+            </ul>
+        </div>
+    </div>
+    <!--top结束-->
+
+    <div class="logo">
+        <div class="logo_left">
+            <img src="images/tw-logo.png" alt="ThoughtWorks" id="log-pic">
+        </div>
+        <div class="logo_right">
+            <img src="images/mail.png" alt="Mail"><span class="mail">ybzhou@thoughtworks.com</span>
+        </div>
+    </div>
+    <!--logo结束-->
+
+    <div class="nav">
+        <div class="nav-left">
+            <ul>
+                <li><a href="#">首页</a></li>
+                <li><a href="list.html">关于斯沃</a></li>
+                <li><a href="list.html">新闻动态</a></li>
+                <li><a href="list.html">课程中心</a></li>
+                <li><a href="list.html">在线课程</a></li>
+                <li><a href="list.html">人才招聘</a></li>
+            </ul>
+        </div>
+        <!--nav-left结束-->
+
+        <div class="nav-right">
+            <form action="" , method="post">
+                <input type="text" class="search-text"/>
+            </form>
+        </div>
+        <!--nav-right结束-->
+
+    </div>
+    <!--nav结束-->
+
+    <div class="name" id="picBox">
+        <div class="pic">
+            <ul>
+                <li><img src="images/name1.jpg" class="focus-pic"></li>
+                <li><img src="images/name2.jpg" class="focus-pic"></li>
+                <li><img src="images/name3.jpg" class="focus-pic"></li>
+                <li><img src="images/name4.jpg" class="focus-pic"></li>
+                <li><img src="images/name5.jpg" class="focus-pic"></li>
+            </ul>
+        </div>
+    </div>
+    <!--焦点图结束-->
+
+    <div class="main">
+        <div class="news"></div>
+        <!--news结束-->
+        <div class="course"></div>
+        <!--course结束-->
+        <div class="sidebar"></div>
+        <!--sidebar结束-->
+    </div>
+    <!--main结束-->
+
+</div>
+</body>
+</html>
