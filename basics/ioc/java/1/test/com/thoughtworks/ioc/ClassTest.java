@@ -5,7 +5,6 @@ import org.junit.Test;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 
-import static javafx.scene.input.KeyCode.F;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
