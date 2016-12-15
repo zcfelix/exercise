@@ -33,7 +33,6 @@ public class ClassPathCandidateComponentScanner {
         File[] dirFiles = dir.listFiles();
         for (File file : dirFiles) {
             String className = file.getName().substring(0, file.getName().length() - 6);
-//            System.out.println(packageName + "." + className);
             classes.add(Class.forName(packageName + "." + className));
         }
     }

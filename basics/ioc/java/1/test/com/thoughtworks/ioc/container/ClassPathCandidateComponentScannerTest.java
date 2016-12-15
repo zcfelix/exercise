@@ -15,4 +15,5 @@ public class ClassPathCandidateComponentScannerTest {
             System.out.println(klass.getName());
         }
     }
+
 }

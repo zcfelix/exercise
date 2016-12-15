@@ -2,13 +2,17 @@ package com.thoughtworks.ioc.bean;
 
 
 import com.thoughtworks.ioc.annotation.Bean;
+import com.thoughtworks.ioc.annotation.Inject;
 
-@Bean("user")
+@Bean
 public class User {
     private String id;
     private String name;
     private int age;
     private String email;
+
+    @Inject("Product")
+    Product product;
 
     public User() {
     }
@@ -29,6 +33,10 @@ public class User {
         this.email = email;
     }
 
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
     public String getId() {
 
         return id;
@@ -44,5 +52,9 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public Product getProduct() {
+        return product;
     }
 }
