@@ -32,8 +32,7 @@ public class IocContainer {
                         if (field.isAnnotationPresent(Inject.class)) {
                             Inject inject = field.getAnnotation(Inject.class);
                             if (inject != null) {
-                                String name = inject.value();
-                                Class fieldClass = Class.forName("com.thoughtworks.ioc.bean." + name);
+                                Class fieldClass = field.getType();
                                 field.setAccessible(true);
                                 field.set(object, resolve(fieldClass));
                             }

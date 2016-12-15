@@ -10,5 +10,4 @@ import java.lang.annotation.*;
 @Documented
 
 public @interface Inject {
-    String value() default "";
 }

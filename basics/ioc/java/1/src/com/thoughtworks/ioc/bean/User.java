@@ -11,7 +11,7 @@ public class User {
     private int age;
     private String email;
 
-    @Inject("Product")
+    @Inject
     Product product;
 
     public User() {
