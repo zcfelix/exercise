@@ -1,6 +1,5 @@
-package com.thoughtworks.ioc.annotation;
+package com.thoughtworks.ioc.container;
 
-import com.thoughtworks.ioc.container.ClassPathCandidateComponentScanner;
 import org.junit.Test;
 
 import java.util.Set;
@@ -12,7 +11,6 @@ public class ClassPathCandidateComponentScannerTest {
         ClassPathCandidateComponentScanner scanner = new ClassPathCandidateComponentScanner();
         String packageName = "com.thoughtworks.ioc.bean";
         Set<Class> set = scanner.findCandidateComponents(packageName);
-        System.out.println(set.size());
         for(Class klass : set) {
             System.out.println(klass.getName());
         }

@@ -10,5 +10,5 @@ import java.lang.annotation.*;
 @Documented
 
 public @interface Inject {
-    public String name() default "";
+    String name() default "";
 }
