@@ -13,11 +13,10 @@ import static org.hamcrest.core.IsNull.nullValue;
 public class JuiceTest {
     @Test
     public void should_get_injector_from_juice() throws Exception {
-
         BillingModule billingModule = new BillingModule();
-        billingModule.bind(BillingService.class);
-        billingModule.bind(CreditCardProcessor.class);
-        billingModule.bind(TransactionLog.class);
+        billingModule.register(BillingService.class);
+        billingModule.register(CreditCardProcessor.class);
+        billingModule.register(TransactionLog.class);
 
         Injector injector = Juice.getInjector(billingModule);
         BillingService billingService = injector.getInstance(BillingService.class);

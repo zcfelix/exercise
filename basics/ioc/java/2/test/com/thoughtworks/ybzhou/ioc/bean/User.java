@@ -1,4 +1,5 @@
 package com.thoughtworks.ybzhou.ioc.bean;
 
-public class User {
+public interface User {
+    String talk();
 }

@@ -2,14 +2,15 @@ package com.thoughtworks.ybzhou.ioc.bean;
 
 import com.thoughtworks.ybzhou.ioc.AbstractModule;
 
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 import static com.thoughtworks.ybzhou.ioc.Binder.bind;
 
-public class BillingModule implements AbstractModule{
+public class UserModule implements AbstractModule {
 
-    private Set<Class> boundClasses = new LinkedHashSet<>();
+    public UserModule() {
+        configure();
+    }
 
     @Override
     public void configure() {
@@ -18,11 +19,11 @@ public class BillingModule implements AbstractModule{
 
     @Override
     public void register(Class clazz) {
-        boundClasses.add(clazz);
+
     }
 
     @Override
     public Set<Class> getBoundClassSet() {
-        return boundClasses;
+        return null;
     }
 }

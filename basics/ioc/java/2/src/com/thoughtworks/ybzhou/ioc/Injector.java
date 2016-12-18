@@ -1,31 +1,44 @@
 package com.thoughtworks.ybzhou.ioc;
 
 import java.lang.reflect.Field;
-import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
 public class Injector {
 
-    private Map<Class, Object> objectMap;
     private Set<Class> classSet;
+    private Map<Class, Class> classMap;
 
     public Injector(AbstractModule module) {
+        classMap = Binder.getClassMap();
         classSet = module.getBoundClassSet();
     }
 
-    public void register(Class<?> clazz) {
-        classSet.add(clazz);
+    private boolean isBound(Class clazz) {
+        if (classMap == null || classMap.size() == 0) {
+            return false;
+        }
+        return classMap.containsKey(clazz);
     }
 
-    public Injector() {
-        classSet = new LinkedHashSet<>();
+    private boolean isRegistered(Class clazz) {
+        if (classSet == null || classSet.size() == 0) {
+            return false;
+        }
+        return classSet.contains(clazz);
     }
+
 
     public <T> T getInstance(Class<T> clazz) {
-        if (!classSet.contains(clazz))
-            throw new InstantiationError(clazz.getName() + " not registered, please register first!");
+        if (isRegistered(clazz))
+            return instantiateFromClassSet(clazz);
+        else if (isBound(clazz))
+            return instantiateFromClassMap(clazz);
+        else
+            throw new InstantiationError(clazz.getName() + " not registered or bound yet.");
+    }
 
+    private <T> T instantiateFromClassSet(Class<T> clazz) {
         try {
             Field[] fields = clazz.getDeclaredFields();
             Object obj;
@@ -41,9 +54,17 @@ public class Injector {
                 }
                 return (T) obj;
             }
-        } catch (InstantiationException e) {
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        }
+        return null;
+    }
+
+    private <T> T instantiateFromClassMap(Class<T> clazz) {
+        Class ImplementClass = classMap.get(clazz);
+        try {
+            return (T) ImplementClass.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }
         return null;
