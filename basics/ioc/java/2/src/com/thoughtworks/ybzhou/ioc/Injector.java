@@ -8,7 +8,11 @@ import java.util.Set;
 public class Injector {
 
     private Map<Class, Object> objectMap;
-    private Set<Class<?>> classSet;
+    private Set<Class> classSet;
+
+    public Injector(AbstractModule module) {
+        classSet = module.getBoundClassSet();
+    }
 
     public void register(Class<?> clazz) {
         classSet.add(clazz);
