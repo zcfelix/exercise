@@ -1,5 +1,9 @@
 package com.thoughtworks.ybzhou.ioc;
 
+import com.thoughtworks.ybzhou.ioc.bean.BillingService;
+import com.thoughtworks.ybzhou.ioc.bean.CreditCardProcessor;
+import com.thoughtworks.ybzhou.ioc.bean.TransactionLog;
+import com.thoughtworks.ybzhou.ioc.bean.User;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,15 +18,16 @@ public class InjectorTest {
     @Before
     public void before() {
         injector = new Injector();
-        injector.register(CreditCardProcessor.class);
+        injector.register(TransactionLog.class);
         injector.register(BillingService.class);
+        injector.register(CreditCardProcessor.class);
     }
 
     @Test
     public void should_get_instance_from_injector() {
-        CreditCardProcessor creditCardProcessor = injector.getInstance(CreditCardProcessor.class);
-        System.out.println(creditCardProcessor.getBillingService());
-        assertThat(creditCardProcessor.getBillingService(), not(nullValue()));
+        BillingService billingService = injector.getInstance(BillingService.class);
+        assertThat(billingService.getCreditCardProcessor(), not(nullValue()));
+        assertThat(billingService.getTransactionLog(), not(nullValue()));
     }
 
     @Test(expected = InstantiationError.class)

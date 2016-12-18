@@ -10,23 +10,23 @@ public class Injector {
     private Map<Class, Object> objectMap;
     private Set<Class<?>> classSet;
 
-    public void register(Class<?> klass) {
-        classSet.add(klass);
+    public void register(Class<?> clazz) {
+        classSet.add(clazz);
     }
 
     public Injector() {
         classSet = new LinkedHashSet<>();
     }
 
-    public <T> T getInstance(Class<T> klass) {
-        if (!classSet.contains(klass))
-            throw new InstantiationError(klass.getName() + " not registered, please register first!");
+    public <T> T getInstance(Class<T> clazz) {
+        if (!classSet.contains(clazz))
+            throw new InstantiationError(clazz.getName() + " not registered, please register first!");
 
         try {
-            Field[] fields = klass.getDeclaredFields();
+            Field[] fields = clazz.getDeclaredFields();
             Object obj;
-            if (classSet.contains(klass)) {
-                obj = klass.newInstance();
+            if (classSet.contains(clazz)) {
+                obj = clazz.newInstance();
                 for (Field f : fields) {
                     if (f.isAnnotationPresent(Inject.class)) {
                         f.setAccessible(true);
