@@ -1,13 +1,13 @@
 1. Implement a provider. 
-    - throw runtime error when get an instance E: 10min R:
+    - throw runtime error when get an instance E: 10min R: 
     - get instance correctly E: 10min R:
 
 2. Implement inject constructors 
-    - inject the default constructor(no parameters and public)  E: 10min R:
-    - inject the annotated constructor
-        - when some parameters not found, report error E: 10min R:
-        - inject all the parameters  E: 15min R: 
-    - report error when inject more than one constructors E: 6min R:
+    - inject the default constructor(no parameters and public) when no other constructors exist  E: 10min R: 5min
+    - inject the annotated constructor 
+        - when some parameters not found, report error E: 10min R: 8min
+        - inject all the parameters  E: 15min R: 40min C: not parameter.getClass(), should parameter.getType()
+    - report error when inject more than one constructors E: 6min R: 7min
     
 3. Implement inject fields 
     - if fields is final, report error  E: 10min R: 
