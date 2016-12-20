@@ -1,4 +1,7 @@
-package com.thoughtworks.ioc;
+package com.thoughtworks.ioc.core;
+
+import com.thoughtworks.ioc.exception.NoInjectedConstructorFoundException;
+import com.thoughtworks.ioc.exception.TooManyInjectedConstructorException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +18,7 @@ public class Injector {
                 for (int i = 0; i < parameters.length; ++i) {
                     System.out.println(parameters[i].getType());
                     if (getInjectedConstructor(parameters[i].getType()) == null) {
-                        throw new RuntimeException("no injected constructor of " + parameters[i].getType() + " in class " + clazz.getName() + " were found");
+                        throw new NoInjectedConstructorFoundException(parameters[i].getType(), clazz);
                     }
                     parameterValues[i] = parameters[i].getType().newInstance();
                 }
@@ -41,7 +44,7 @@ public class Injector {
                 annotatedCount += 1;
             }
             if (annotatedCount > 1) {
-                throw new RuntimeException("more than 1 injected constructors in " + clazz.getName() + " are not permit");
+                throw new TooManyInjectedConstructorException(clazz);
             }
         }
         if (constructors.length == 1) {

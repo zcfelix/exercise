@@ -1,4 +1,4 @@
-package com.thoughtworks.ioc;
+package com.thoughtworks.ioc.core;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

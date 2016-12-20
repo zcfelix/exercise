@@ -1,6 +1,6 @@
 package com.thoughtworks.testclass;
 
-import com.thoughtworks.ioc.Inject;
+import com.thoughtworks.ioc.core.Inject;
 
 public class MultiAnnotatedCar {
     private int capacity;

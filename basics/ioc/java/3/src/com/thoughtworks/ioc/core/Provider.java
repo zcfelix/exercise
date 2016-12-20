@@ -1,4 +1,4 @@
-package com.thoughtworks.ioc;
+package com.thoughtworks.ioc.core;
 
 public interface Provider<T> {
     T get();

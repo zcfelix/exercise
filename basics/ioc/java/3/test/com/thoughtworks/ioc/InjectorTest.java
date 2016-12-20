@@ -1,5 +1,6 @@
 package com.thoughtworks.ioc;
 
+import com.thoughtworks.ioc.core.Injector;
 import com.thoughtworks.testclass.Car;
 import com.thoughtworks.testclass.MultiAnnotatedCar;
 import com.thoughtworks.testclass.ParametersCar;
