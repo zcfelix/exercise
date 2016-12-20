@@ -1,10 +1,7 @@
 package com.thoughtworks.ioc;
 
 import com.thoughtworks.ioc.core.Injector;
-import com.thoughtworks.testclass.Car;
-import com.thoughtworks.testclass.MultiAnnotatedCar;
-import com.thoughtworks.testclass.ParametersCar;
-import com.thoughtworks.testclass.SomeNonInjectParameterCar;
+import com.thoughtworks.testclass.*;
 import org.junit.Test;
 
 import static org.hamcrest.CoreMatchers.not;
@@ -21,6 +18,11 @@ public class InjectorTest {
     @Test(expected = RuntimeException.class)
     public void should_throw_runtime_error_when_more_than_one_constructors_are_annotated() throws Exception {
         MultiAnnotatedCar multiAnnotatedCar = Injector.getInstance(MultiAnnotatedCar.class);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void should_throw_runtime_error_when_no_injected_constructor_found() throws Exception {
+        Door door = Injector.getInstance(Door.class);
     }
 
     @Test
