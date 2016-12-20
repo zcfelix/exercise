@@ -15,10 +15,10 @@
     
 
 4. Implement inject methods
-    - if abstract, report error E: 10min R: 
-    - if including type parameters, report error E: 15min R:
-    - including 0 actual parameters E: 10min
-    - including actual parameters E: 15min
+    - if abstract, report error E: 10min R: 32min C: why test error?
+    - if including type parameters, report error E: 15min R: 23min C: not familiar with reflection with generic types
+    - including 0 actual parameters E: 10min R: Long time C: do not know how to inject a method
+    - including actual parameters E: 15min R: 45min C: long time to think about the use case of method injection
     
 5. Qualifier 
     - inject a correct instance withe the right qualifier 

@@ -1,8 +1,6 @@
 package com.thoughtworks.ioc.core;
 
-import com.thoughtworks.ioc.exception.FinalFieldInjectedException;
-import com.thoughtworks.ioc.exception.NoInjectedConstructorFoundException;
-import com.thoughtworks.ioc.exception.TooManyInjectedConstructorException;
+import com.thoughtworks.ioc.exception.*;
 
 import java.lang.reflect.*;
 
@@ -31,6 +29,25 @@ public class Injector {
                 }
             }
 
+            // Inject methods
+            Method[] methods = clazz.getDeclaredMethods();
+            for (Method method : methods) {
+                if (method.isAnnotationPresent(Inject.class)) {
+                    if (Modifier.isAbstract(method.getModifiers())) {
+                        throw new AbstractMethodInjectionException(method);
+                    }
+                    if (hasGenericParaType(method) || hasGenericReturnType(method)) {
+                        throw new GenericMethodInjectionException(method);
+                    }
+                    Parameter[] methodParas = method.getParameters();
+                    Object[] methodParaValues = new Object[methodParas.length];
+                    for (int i = 0; i < methodParas.length; ++i) {
+                        methodParaValues[i] = getInstance(methodParas[i].getType());
+                    }
+                    method.invoke(obj, methodParaValues);
+                }
+            }
+
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -39,6 +56,21 @@ public class Injector {
             e.printStackTrace();
         }
         return (T) obj;
+    }
+
+    private static boolean hasGenericParaType(Method method) {
+        Parameter[] parameters = method.getParameters();
+        for (Parameter para : parameters) {
+            if (TypeVariable.class.isAssignableFrom(para.getParameterizedType().getClass())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean hasGenericReturnType(Method method) {
+        Type returnType = method.getGenericReturnType();
+        return TypeVariable.class.isAssignableFrom(returnType.getClass());
     }
 
     private static Constructor getInjectedConstructor(Class clazz) {
