@@ -10,8 +10,8 @@
     - report error when inject more than one constructors E: 6min R: 7min
     
 3. Implement inject fields 
-    - if fields is final, report error  E: 10min R: 
-    - not final and valid name, inject the field E: 10min R: 
+    - if fields is final, report error  E: 10min R: 20min 
+    - not final and valid name, inject the field E: 10min R: 7min
     
 
 4. Implement inject methods

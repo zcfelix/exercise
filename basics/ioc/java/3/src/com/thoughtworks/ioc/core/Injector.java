@@ -1,16 +1,16 @@
 package com.thoughtworks.ioc.core;
 
+import com.thoughtworks.ioc.exception.FinalFieldInjectedException;
 import com.thoughtworks.ioc.exception.NoInjectedConstructorFoundException;
 import com.thoughtworks.ioc.exception.TooManyInjectedConstructorException;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Parameter;
+import java.lang.reflect.*;
 
 public class Injector {
     public static <T> T getInstance(Class clazz) {
         Object obj = null;
         try {
+            // Inject constructor
             Constructor constructor = getInjectedConstructor(clazz);
             Parameter[] parameters = constructor.getParameters();
             Object[] parameterValues = new Object[parameters.length];
@@ -18,6 +18,19 @@ public class Injector {
                 parameterValues[i] = getInstance(parameters[i].getType());
             }
             obj = constructor.newInstance(parameterValues);
+
+            // Inject fields
+            Field[] fields = clazz.getDeclaredFields();
+            for (Field field : fields) {
+                if (field.isAnnotationPresent(Inject.class)) {
+                    if (Modifier.isFinal(field.getModifiers())) {
+                        throw new FinalFieldInjectedException(field);
+                    }
+                    field.setAccessible(true);
+                    field.set(obj, getInstance(field.getType()));
+                }
+            }
+
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
