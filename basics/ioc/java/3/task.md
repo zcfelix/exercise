@@ -19,12 +19,25 @@
     - if including type parameters, report error E: 15min R: 23min C: not familiar with reflection with generic types
     - including 0 actual parameters E: 10min R: Long time C: do not know how to inject a method
     - including actual parameters E: 15min R: 45min C: long time to think about the use case of method injection
+
+5. Implement binding to a class in injector
+    - class not found, throw error E: 5min R:
+    - bind and can get instance E: 5min R: 
+
+6. Implement binding a interface to a specific class in injector
+    - interface not found, throw error E: 5min R:
+    - class not found, throw error E: 5min R:
+    - bind and can get instance E: 10min R:
     
-5. Qualifier 
+
+7. Named 
+    - the named class not found E: 5min R:
+    - bind a interface to the specific class with the name E: 10min R:
+
+
+8. Qualifier 
     - inject a correct instance withe the right qualifier 
     - throw an error 
 
-6. Named 
-
-7. Singleton 
+9. Singleton 
     - if annotated with singleton, inject the same instance every time. E: 10min
