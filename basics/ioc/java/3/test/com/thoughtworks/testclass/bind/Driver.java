@@ -1,4 +1,4 @@
-package com.thoughtworks.testclass;
+package com.thoughtworks.testclass.bind;
 
 public class Driver {
 

@@ -1,4 +1,4 @@
-package com.thoughtworks.testclass;
+package com.thoughtworks.testclass.bind;
 
 import com.thoughtworks.ioc.core.Inject;
 

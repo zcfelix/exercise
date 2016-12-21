@@ -3,9 +3,20 @@ package com.thoughtworks.ioc.core;
 import com.thoughtworks.ioc.exception.*;
 
 import java.lang.reflect.*;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Injector {
-    public static <T> T getInstance(Class clazz) {
+    private Set<Class> registeredClasses;
+
+    public Injector() {
+        registeredClasses = new HashSet<>();
+    }
+
+    public <T> T getInstance(Class clazz) {
+        if (!registeredClasses.contains(clazz))
+            throw new ClassNotRegisteredException(clazz);
+
         Object obj = null;
         try {
             // Inject constructor
@@ -58,7 +69,7 @@ public class Injector {
         return (T) obj;
     }
 
-    private static boolean hasGenericParaType(Method method) {
+    private boolean hasGenericParaType(Method method) {
         Parameter[] parameters = method.getParameters();
         for (Parameter para : parameters) {
             if (TypeVariable.class.isAssignableFrom(para.getParameterizedType().getClass())) {
@@ -68,12 +79,12 @@ public class Injector {
         return false;
     }
 
-    private static boolean hasGenericReturnType(Method method) {
+    private boolean hasGenericReturnType(Method method) {
         Type returnType = method.getGenericReturnType();
         return TypeVariable.class.isAssignableFrom(returnType.getClass());
     }
 
-    private static Constructor getInjectedConstructor(Class clazz) {
+    private Constructor getInjectedConstructor(Class clazz) {
         Constructor[] constructors = clazz.getConstructors();
         // Only default constructor and no parameters, no need annotation
         if (constructors.length == 1 && constructors[0].getParameterCount() == 0)
@@ -94,5 +105,14 @@ public class Injector {
         if (validConstructor == null)
             throw new NoInjectedConstructorFoundException(clazz);
         return validConstructor;
+    }
+
+    public Injector register(Class clazz) {
+        registeredClasses.add(clazz);
+        return this;
+    }
+
+    public void clear() {
+        registeredClasses.clear();
     }
 }

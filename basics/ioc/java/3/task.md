@@ -20,9 +20,9 @@
     - including 0 actual parameters E: 10min R: Long time C: do not know how to inject a method
     - including actual parameters E: 15min R: 45min C: long time to think about the use case of method injection
 
-5. Implement binding to a class in injector
-    - class not found, throw error E: 5min R:
-    - bind and can get instance E: 5min R: 
+5. Implement binding to a class in injector E: 10min R: 20min C: modify existed tests
+    - class not found, throw error 
+    - bind and can get instance 
 
 6. Implement binding a interface to a specific class in injector
     - interface not found, throw error E: 5min R:
