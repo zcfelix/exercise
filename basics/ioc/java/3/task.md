@@ -27,7 +27,7 @@
 6. Implement binding a interface to a specific class in injector
     - interface not found, throw error E: 5min R:
     - class not found, throw error E: 5min R:
-    - bind and can get instance E: 10min R:
+    - bind and can get instance E: 10min R: 8min
     
 
 7. Named 

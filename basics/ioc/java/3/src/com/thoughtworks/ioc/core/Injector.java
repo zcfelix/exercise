@@ -3,18 +3,22 @@ package com.thoughtworks.ioc.core;
 import com.thoughtworks.ioc.exception.*;
 
 import java.lang.reflect.*;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public class Injector {
     private Set<Class> registeredClasses;
+    private Map<Class, Class> bindClasses;
 
     public Injector() {
         registeredClasses = new HashSet<>();
+        bindClasses = new HashMap<>();
     }
 
     public <T> T getInstance(Class clazz) {
-        if (!registeredClasses.contains(clazz))
+        if (!registeredClasses.contains(clazz) && !bindClasses.containsValue(clazz))
             throw new ClassNotRegisteredException(clazz);
 
         Object obj = null;
@@ -114,5 +118,9 @@ public class Injector {
 
     public void clear() {
         registeredClasses.clear();
+    }
+
+    public void bindWith(Class interfaceClass, Class implementClass) {
+        bindClasses.put(interfaceClass, implementClass);
     }
 }
